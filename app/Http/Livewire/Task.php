@@ -11,11 +11,18 @@ class Task extends Component
     public TaskModel $task;
 
     protected $rules=['task.text'=>'required|max:40'];
-
+//hooks
     public function mount(){
         $this->tasks = TaskModel::orderBy('id','desc')->get();
         $this->task = new TaskModel();
     }
+
+    public function updatedTaskText()
+    {
+        $this->validate(['task.text'=>'max:40']);//el array de validaciones se agregan solo si cambian versus la generales
+    }
+
+ //methods   
     public function save(){
         $this->validate();
         $this->task->save();
