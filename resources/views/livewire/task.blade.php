@@ -1,11 +1,18 @@
 <div>
-    <form class="p-4">
+    <form class="p-4" wire:submit.prevent="save">
         <div class="mb-4">
-            <input class="p-2 bg-gray-200 w-full" type="text" name="text" placeholder="Tarea...">
+            <input wire:model="task.text" class="p-2 bg-gray-200 w-full" type="text" placeholder="Tarea...">
+            @error('task.text')
+                <div class="mt-1 text-red-600 text-sm">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
         <button type="submit" class="bg-indigo-700 text-white font-bold w-full rounded shadow p-2">Guardar</button>
     </form>
-
+    @if (session()->has('message'))
+        <span class=" text-green-600 font-bold">{{ session('message') }}</span>
+    @endif
     <table class="shadow-md">
         <thead>
             <tr class="bg-gray-200 text-gray-600 uppercase text-sm">
